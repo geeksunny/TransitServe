@@ -1,7 +1,6 @@
 package com.radicalninja.transitserve.data.model;
 
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -15,7 +14,7 @@ public class LatLong implements Serializable {
 
     private static final String FORMAT_STRING = "(%f,%f)";
 
-    double latitude, longitude;
+    private double latitude, longitude;
 
     public LatLong() { }
 
@@ -31,31 +30,33 @@ public class LatLong implements Serializable {
         this.longitude = longitude;
     }
 
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
     @Override
     public String toString() {
         return String.format(Locale.US, FORMAT_STRING, latitude, longitude);
     }
 
 
-    public static class LocationDeserializer extends JsonDeserializer<LatLong> {
+    static class LocationDeserializer extends JsonDeserializer<LatLong> {
         @Override
-        public LatLong deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+        public LatLong deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
             return new LatLong(p.getText());
         }
     }
-
-
-    //    @com.raizlabs.android.dbflow.annotation.TypeConverter
-//    public static class LatLongConverter extends TypeConverter<String, LatLong> {
-//        @Override
-//        public String getDBValue(LatLong model) {
-//            return (null == model) ? null : model.toString();
-//        }
-//
-//        @Override
-//        public LatLong getModelValue(String data) {
-//            return new LatLong(data);
-//        }
-//    }
 
 }

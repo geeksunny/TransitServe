@@ -26,8 +26,10 @@ repositories {
     mavenCentral()
 }
 
+def SPRING_BOOT_VERSION = "1.4.0.RELEASE"
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-web:1.4.0.RELEASE")
+    compile("org.springframework.boot:spring-boot-starter-web:${SPRING_BOOT_VERSION}")
+    compile("org.springframework.boot:spring-boot-starter-data-mongodb:${SPRING_BOOT_VERSION}")
     compile("com.fasterxml.jackson.dataformat:jackson-dataformat-csv:2.7.0")
 //    testCompile('org.springframework.boot:spring-boot-starter-test')
 }

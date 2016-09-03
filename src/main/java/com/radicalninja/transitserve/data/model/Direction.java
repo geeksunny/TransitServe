@@ -1,4 +1,4 @@
-package com.radicalninja.transitserve.model;
+package com.radicalninja.transitserve.data.model;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;

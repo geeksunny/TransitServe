@@ -1,6 +1,6 @@
-package com.radicalninja.transitserve;
+package com.radicalninja.transitserve.server;
 
-import org.springframework.boot.SpringApplication;
+import com.radicalninja.transitserve.data.TrainStopsImporter;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.IOException;
@@ -9,12 +9,13 @@ import java.io.IOException;
 public class Application {
 
     public static void main(String[] args) {
-        //SpringApplication.run(Application.class, args);
         try {
-            TrainStopsImporter.testParse();
+            final TrainStopsImporter importer = new TrainStopsImporter();
+            importer.importStops();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        //SpringApplication.run(Application.class, args);
     }
 
 }

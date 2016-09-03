@@ -1,6 +1,6 @@
-package com.radicalninja.transitserve;
+package com.radicalninja.transitserve.server;
 
-import com.radicalninja.transitserve.model.Greeting;
+import com.radicalninja.transitserve.data.model.Greeting;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;

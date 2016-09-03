@@ -1,4 +1,4 @@
-package com.radicalninja.transitserve.model;
+package com.radicalninja.transitserve.data.model;
 
 public class Greeting {
 

@@ -12,7 +12,7 @@ import java.io.IOException;
 
 @JsonPropertyOrder({"stopId", "directionId", "stopName", "stationName", "stationDescriptiveName", "mapId", "ada", "red",
         "blue", "green", "brown", "purple", "purpleExpress", "yellow", "pink", "orange", "location"})
-public class TrainStopCsv {
+public class CsvTrainStop {
     //STOP_ID,DIRECTION_ID,STOP_NAME,STATION_NAME,STATION_DESCRIPTIVE_NAME,MAP_ID,ADA,RED,BLUE,G,BRN,P,Pexp,Y,Pnk,O,Location
 
     @JsonProperty("STOP_ID")

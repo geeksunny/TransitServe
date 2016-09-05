@@ -5,25 +5,25 @@ import org.springframework.data.mongodb.core.index.Indexed;
 
 public class Route {
 
-    /*
-        @PrimaryKey(autoincrement = true)
-    private int _id;
-    @Column
-    @Unique
-    private String routeId;
-    @Column
-    private Type type;
-    @Column
-    private String longName;
-    @Column
-    private String shortName;
-    @Column
-    private int colorHex;
-     */
-
     @Id
     private int id;
+
     @Indexed(unique = true)
     private String routeId;
-    private Type type
+
+    private String shortName;
+
+    private String longName;
+
+    private Type type;
+
+    private int colorHex;
+
+    public Route(String routeId, String shortName, String longName, Type type, int colorHex) {
+        this.routeId = routeId;
+        this.shortName = shortName;
+        this.longName = longName;
+        this.type = type;
+        this.colorHex = colorHex;
+    }
 }

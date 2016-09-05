@@ -1,16 +1,20 @@
 package com.radicalninja.transitserve.data.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
+import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.index.Indexed;
 
+@CompoundIndexes(
+        @CompoundIndex(name = "TrainStop _ind1", def = "{'stopId':1,'directionId':1}", unique = true)
+)
 public class TrainStop implements Stop {
 
-    // TODO: @see http://docs.mongodb.org/manual/core/index-unique/
     @Id
-    @Indexed(name = "index")
+    @Indexed
     private int stopId;
 
-    @Indexed(name = "index")
+    @Indexed
     private Direction directionId;
 
     private String stopName;

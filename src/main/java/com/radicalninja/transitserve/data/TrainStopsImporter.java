@@ -4,9 +4,9 @@ import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
+import com.radicalninja.transitserve.data.model.CsvTrainStop;
 import com.radicalninja.transitserve.data.model.Route;
 import com.radicalninja.transitserve.data.model.Stop;
-import com.radicalninja.transitserve.data.model.CsvTrainStop;
 import com.radicalninja.transitserve.data.model.Type;
 
 import java.io.File;

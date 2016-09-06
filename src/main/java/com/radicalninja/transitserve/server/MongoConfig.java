@@ -11,6 +11,8 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @EnableMongoRepositories(basePackages = "com.radicalninja.transitserve.data.db")
 public class MongoConfig extends AbstractMongoConfiguration {
 
+    // TODO: Add support for the mongodb hostname via environment variables / command arguments
+
     @Override
     protected String getDatabaseName() {
         return "TransitServeDb";

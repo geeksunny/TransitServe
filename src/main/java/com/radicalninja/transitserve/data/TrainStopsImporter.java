@@ -20,6 +20,7 @@ import java.util.List;
 public class TrainStopsImporter {
 
     // TODO: Add logging to this class
+    private final static String TRAIN_CSV_IMPORT_FILE = "train_stops.csv";
     private final static String TRAIN_CSV_ZIP_URL = "http://www.transitchicago.com/assets/1/developer_center/cta_L_stops.zip";
     private final static String TRAIN_CSV_FILENAME = "cta_L_stops_new.csv";
 
@@ -101,7 +102,7 @@ public class TrainStopsImporter {
     }
 
     private void importStops() throws IOException {
-        final File csvFile = new File("train_stops.csv");
+        final File csvFile = new File(TRAIN_CSV_IMPORT_FILE);
         final List<CsvTrainStop> stops = parseCsvData(csvFile);
         processCsvData(stops);
     }

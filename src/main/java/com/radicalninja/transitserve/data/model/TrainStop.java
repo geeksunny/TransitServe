@@ -1,6 +1,7 @@
 package com.radicalninja.transitserve.data.model;
 
-import org.springframework.data.annotation.Id;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -8,25 +9,33 @@ import org.springframework.data.mongodb.core.index.Indexed;
 @CompoundIndexes(
         @CompoundIndex(name = "TrainStop _ind1", def = "{'stopId':1,'directionId':1}", unique = true)
 )
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public class TrainStop implements Stop {
 
-    @Id
+    @JsonProperty
     @Indexed
     private int stopId;
 
+    @JsonProperty
     @Indexed
     private Direction directionId;
 
+    @JsonProperty
     private String stopName;
 
+    @JsonProperty
     private String stationName;
 
+    @JsonProperty
     private String stationDescription;
 
+    @JsonProperty
     private int mapId;
 
+    @JsonProperty
     private boolean isAdaAccessible;
 
+    @JsonProperty
     private LatLong location;
 
     @Override

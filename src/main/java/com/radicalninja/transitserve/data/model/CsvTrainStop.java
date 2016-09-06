@@ -39,42 +39,55 @@ public class CsvTrainStop {
 
     @JsonProperty("RED")
     @JsonDeserialize(using = CaseInsensitiveBooleanDeserializer.class)
-    private boolean red;
+    public boolean red;
 
     @JsonProperty("BLUE")
     @JsonDeserialize(using = CaseInsensitiveBooleanDeserializer.class)
-    private boolean blue;
+    public boolean blue;
 
     @JsonProperty("G")
     @JsonDeserialize(using = CaseInsensitiveBooleanDeserializer.class)
-    private boolean green;
+    public boolean green;
 
     @JsonProperty("BRN")
     @JsonDeserialize(using = CaseInsensitiveBooleanDeserializer.class)
-    private boolean brown;
+    public boolean brown;
 
     @JsonProperty("P")
     @JsonDeserialize(using = CaseInsensitiveBooleanDeserializer.class)
-    private boolean purple;
+    public boolean purple;
 
     @JsonProperty("Pexp")
     @JsonDeserialize(using = CaseInsensitiveBooleanDeserializer.class)
-    private boolean purpleExpress;
+    public boolean purpleExpress;
 
     @JsonProperty("Y")
     @JsonDeserialize(using = CaseInsensitiveBooleanDeserializer.class)
-    private boolean yellow;
+    public boolean yellow;
 
     @JsonProperty("Pnk")
     @JsonDeserialize(using = CaseInsensitiveBooleanDeserializer.class)
-    private boolean pink;
+    public boolean pink;
 
     @JsonProperty("O")
     @JsonDeserialize(using = CaseInsensitiveBooleanDeserializer.class)
-    private boolean orange;
+    public boolean orange;
 
     @JsonProperty("Location")
     private LatLong location;
+
+    public TrainStop createTrainStop() {
+        final TrainStop stop = new TrainStop();
+        stop.setStopId(stopId);
+        stop.setDirectionId(directionId);
+        stop.setStopName(stopName);
+        stop.setStationName(stationName);
+        stop.setStationDescription(stationDescriptiveName);
+        stop.setMapId(mapId);
+        stop.setAdaAccessible(ada);
+        stop.setLocation(location);
+        return stop;
+    }
 
     public static class CaseInsensitiveBooleanDeserializer extends JsonDeserializer<Boolean> {
         @Override

@@ -4,10 +4,12 @@ import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
-import com.radicalninja.transitserve.data.model.CsvTrainStop;
-import com.radicalninja.transitserve.data.model.Route;
-import com.radicalninja.transitserve.data.model.Stop;
-import com.radicalninja.transitserve.data.model.Type;
+import com.radicalninja.transitserve.data.association.RouteAndStop;
+import com.radicalninja.transitserve.data.db.RouteAndStopRepository;
+import com.radicalninja.transitserve.data.db.RouteRepository;
+import com.radicalninja.transitserve.data.db.StopRepository;
+import com.radicalninja.transitserve.data.model.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,8 +19,16 @@ import java.util.List;
 
 public class TrainStopsImporter {
 
+    // TODO: Add logging to this class
     private final static String TRAIN_CSV_ZIP_URL = "http://www.transitchicago.com/assets/1/developer_center/cta_L_stops.zip";
     private final static String TRAIN_CSV_FILENAME = "cta_L_stops_new.csv";
+
+    @Autowired
+    private RouteRepository routeRepository;
+    @Autowired
+    private StopRepository stopRepository;
+    @Autowired
+    private RouteAndStopRepository routeAndStopRepository;
 
     // Base stops
     private Route red = new Route("red", "Red", "Red Line", Type.TRAIN, 0xffee254c);
@@ -30,6 +40,21 @@ public class TrainStopsImporter {
     private Route pexp = new Route("pexp", "Purple Express", "Purple Line Express", Type.TRAIN, 0xff6b668d);
     private Route pink = new Route("pink", "Pink", "Pink Line", Type.TRAIN, 0xfff8bbc7);
     private Route y = new Route("y", "Yellow", "Yellow Line", Type.TRAIN, 0xfff9f304);
+
+    public void performImport() throws IOException {
+        if (routeRepository.count() == 0) {
+            System.out.println("Performing route import job.");
+            importRoutes();
+        } else {
+            System.out.println("Skipping route import job.");
+        }
+        if (stopRepository.count() == 0) {
+            System.out.println("Performing stop data import job.");
+            importStops();
+        } else {
+            System.out.println("Skipping stop data import job.");
+        }
+    }
 
     // URL, File, InputStream
     private ObjectReader makeObjectReader() {
@@ -62,23 +87,52 @@ public class TrainStopsImporter {
         return parseCsvData(iterator);
     }
 
-    public boolean importStops() throws IOException {
+    private void importRoutes() {
+
+        routeRepository.save(red);
+        routeRepository.save(blue);
+        routeRepository.save(brn);
+        routeRepository.save(g);
+        routeRepository.save(org);
+        routeRepository.save(p);
+        routeRepository.save(pexp);
+        routeRepository.save(pink);
+        routeRepository.save(y);
+    }
+
+    private void importStops() throws IOException {
         final File csvFile = new File("train_stops.csv");
         final List<CsvTrainStop> stops = parseCsvData(csvFile);
-        // TODO: Import into MongoDB
-        return true;
+        processCsvData(stops);
     }
 
     private void processCsvData(final List<CsvTrainStop> csvTrainStops) {
-
+        for (final CsvTrainStop trainStop : csvTrainStops) {
+            final TrainStop stop = trainStop.createTrainStop();
+            stopRepository.save(stop);
+            setupAssociations(trainStop, stop);
+        }
     }
 
-    private void setupAssociations() {
-
+    private void setupAssociations(final CsvTrainStop csvTrainStop, final TrainStop trainStop) {
+        setupAssociation(csvTrainStop.red, red, trainStop);
+        setupAssociation(csvTrainStop.blue, blue, trainStop);
+        setupAssociation(csvTrainStop.brown, brn, trainStop);
+        setupAssociation(csvTrainStop.green, g, trainStop);
+        setupAssociation(csvTrainStop.orange, org, trainStop);
+        setupAssociation(csvTrainStop.purple, p, trainStop);
+        setupAssociation(csvTrainStop.purpleExpress, pexp, trainStop);
+        setupAssociation(csvTrainStop.pink, pink, trainStop);
+        setupAssociation(csvTrainStop.yellow, y, trainStop);
     }
 
     private void setupAssociation(final boolean associate, final Route route, final Stop stop) {
-
+        if (associate) {
+            final RouteAndStop routeAndStop = new RouteAndStop();
+            routeAndStop.setRoute(route);
+            routeAndStop.setStop(stop);
+            routeAndStopRepository.save(routeAndStop);
+        }
     }
 
 }

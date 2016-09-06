@@ -30,4 +30,24 @@ public class Route {
         this.type = type;
         this.colorHex = colorHex;
     }
+
+    public String getRouteId() {
+        return routeId;
+    }
+
+    public String getShortName() {
+        return shortName;
+    }
+
+    public String getLongName() {
+        return longName;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public int getColorHex() {
+        return colorHex;
+    }
 }
